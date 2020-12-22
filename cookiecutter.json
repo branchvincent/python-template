@@ -1,0 +1,6 @@
+{
+  "project_name": "My Project",
+  "project_slug": "{{ cookiecutter.project_name | lower | replace(' ', '_') }}",
+  "project_description": "{{ cookiecutter.project_name }}",
+  "_copy_without_render": [".github/workflows/ci.yaml"]
+}
