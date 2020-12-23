@@ -1,8 +1,13 @@
 [tool.poetry]
 name = "{{cookiecutter.project_slug}}"
-version = "0.1.0"
+version = "{{cookiecutter.version}}"
 description = "{{cookiecutter.project_description}}"
-authors = ["Branch Vincent <branchevincent@gmail.com>"]
+authors = ["{{cookiecutter.author}} <{{cookiecutter.email}}>"]
+{% if cookiecutter.project_name != cookiecutter.project_slug -%}
+packages = [
+    { include = "{{cookiecutter.project_slug}}" },
+]
+{% endif -%}
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -19,7 +24,7 @@ pytest = "^6.2.1"
 [tool.poe.tasks]
 clean = { cmd = "rm -rf .mypy_cache/ .pytest_cache/ build/ dist/ *.egg-info", help = "Remove build artifacts" }
 lint = { cmd = "pre-commit run --all-files", help = "Run linters and formatters" }
-test = { cmd = "pytest tests", help = "Run tests" }
+test = { cmd = "pytest", help = "Run tests" }
 
 [tool.black]
 line-length = 88
@@ -27,6 +32,9 @@ line-length = 88
 [tool.isort]
 line_length = 88
 profile = "black"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [build-system]
 requires = ["poetry-core>=1.0"]

@@ -2,5 +2,8 @@
   "project_name": "My Project",
   "project_slug": "{{ cookiecutter.project_name | lower | replace(' ', '_') }}",
   "project_description": "{{ cookiecutter.project_name }}",
+  "author": "Branch Vincent",
+  "email": "branchevincent@gmail.com",
+  "version": "0.1.0",
   "_copy_without_render": [".github/workflows/ci.yaml"]
 }
