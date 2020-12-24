@@ -1,3 +1,4 @@
+// -*- mode: jsonc -*-
 {
   // See more at https://code.visualstudio.com/docs/python/debugging
   "version": "0.2.0",

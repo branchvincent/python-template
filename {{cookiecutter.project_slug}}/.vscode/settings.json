@@ -1,3 +1,4 @@
+// -*- mode: jsonc -*-
 {
   // Formatters
   "python.formatting.provider": "black",

@@ -1,12 +1,14 @@
-FROM python:3.9 AS base
+FROM python:3.9-alpine AS base
 WORKDIR /app
 
 ### Build phase ###
 FROM base AS builder
 
-# Add deps
+# Install poetry
 RUN pip install poetry~=1.1
 RUN poetry config virtualenvs.in-project true
+
+# Install deps
 COPY pyproject.toml poetry.lock ./
 RUN poetry install --no-root --no-dev
 
@@ -16,6 +18,7 @@ RUN poetry install --no-dev
 
 ### Final stage ###
 FROM base AS production
-ENV PATH="/app/.venv/bin:$PATH"
 COPY --from=builder /app ./
-ENTRYPOINT ["your-package-cli"]
+ENV PATH="/app/.venv/bin:$PATH"
+ENTRYPOINT ["python", "-m", "{{cookiecutter.project_slug}}"]
+CMD ["--help"]
