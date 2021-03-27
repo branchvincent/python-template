@@ -2,13 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 env:
   POETRY_VIRTUALENVS_IN_PROJECT: true
 
+{% raw -%}
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -32,9 +33,9 @@ jobs:
         run: poetry run poe test
 
   release:
-    needs: test
+    needs: lint
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
@@ -63,12 +64,15 @@ jobs:
           release_name: ${{ steps.version.outputs.tag }}
           body: ${{ steps.version.outputs.clean_changelog }}
           commitish: ${{ env.SHA }}
+{%- endraw %}
+      {% if not private -%}
+      {% raw -%}
       - name: Publish to PyPI
         if: ${{ steps.version.outputs.skipped == 'false' }}
         env:
-          # https://github.com/python-poetry/poetry/issues/2359
-          POETRY_HTTP_BASIC_PYPI_USERNAME: __token__
-          POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
         run: |
           pip install poetry
           poetry publish --build --no-interaction
+      {%- endraw %}
+      {%- endif %}

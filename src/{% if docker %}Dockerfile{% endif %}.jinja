@@ -5,7 +5,7 @@ WORKDIR /app
 FROM base AS builder
 
 # Install poetry
-RUN pip install poetry~=1.1
+RUN pip install --no-cache-dir poetry~=1.1
 RUN poetry config virtualenvs.in-project true
 
 # Install deps
@@ -20,5 +20,5 @@ RUN poetry install --no-dev
 FROM base AS production
 COPY --from=builder /app ./
 ENV PATH="/app/.venv/bin:$PATH"
-ENTRYPOINT ["python", "-m", "{{cookiecutter.project_slug}}"]
+ENTRYPOINT ["python", "-m", "{{project_name}}"]
 CMD ["--help"]

@@ -1,0 +1,11 @@
+{%- macro package_name() -%}
+  {{ project_name | lower | replace(' ', '-') }}
+{%- endmacro -%}
+
+{%- macro project_import() -%}
+  {{ project_name | lower | replace(' ', '_') }}
+{%- endmacro -%}
+
+{%- macro project_name() -%}
+  {{ project_slug | lower | replace(' ', '_') }}
+{%- endmacro -%}

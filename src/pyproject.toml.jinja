@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "{{project_name | lower | replace(' ', '-') | replace('_', '-')}}"
+version = "0.1.0"
+description = "{{project_description}}"
+authors = ["{{author_name}} <{{author_email}}>"]
+packages = [{ include = "{{project_name}}", from = "src" }]
+{% if private %}classifiers = ["Private :: Do Not Upload"]{% endif %}
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+black = "*"
+flake8 = "*"
+isort = "*"
+{% if docs -%}
+mkdocs = "*"
+mkdocs-material = "*"
+{%- endif %}
+mypy = "*"
+poethepoet = "*"
+pre-commit = "*"
+pytest = "*"
+
+[tool.poe.tasks]
+clean = { cmd = "rm -rf .mypy_cache/ .pytest_cache/ build/ dist/ *.egg-info", help = "Remove build artifacts" }
+{% if docs -%}
+docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
+{%- endif %}
+lint = { cmd = "pre-commit run --all-files", help = "Run linters and formatters" }
+test = { cmd = "pytest", help = "Run tests" }
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["poetry-core>=1.0"]
+build-backend = "poetry.core.masonry.api"
