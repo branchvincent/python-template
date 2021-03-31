@@ -1,13 +1,19 @@
-# Cookiecutter Python
+# Copier Python
 
-[Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a Python package based on my favorite tools.
+A [Copier](https://github.com/copier-org/copier) template for a Python package based on my favorite tools.
 
 ## Usage
 
 ```sh
-cookiecutter gh:branchvincent/cookiecutter-python
+copier gh:branchvincent/cookiecutter-python
 ```
 
 ## Features
 
 TODO
+
+## Debugging
+
+```sh
+copier -f . tmp/
+```

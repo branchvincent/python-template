@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: Current File",
+      "name": "Current File",
       "type": "python",
       "request": "launch",
       "program": "${file}",
@@ -13,7 +13,7 @@
       "justMyCode": false
     },
     {
-      "name": "Python: Module",
+      "name": "Module",
       "type": "python",
       "request": "launch",
       "module": "{{cookiecutter.project_slug}}",

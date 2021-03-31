@@ -1,0 +1,59 @@
+# Params
+project_name: #^[a-zA-Z][_a-zA-Z0-9]+$
+  type: str
+  default: project_name
+project_description:
+  type: str
+  default: "{{ project_name.capitalize() | replace('_', ' ') }}"
+author_name:
+  type: str
+  default: Branch Vincent
+author_email:
+  type: str
+  default: branchevincent@gmail.com
+repo_username:
+  type: str
+  default: branchvincent
+repo_name:
+  type: str
+  default: "{{ project_name | lower | replace(' ', '-') | replace('_', '-') }}"
+private:
+  type: bool
+  default: True
+docs:
+  type: bool
+  default: True
+docker:
+  type: bool
+  default: False
+# type:
+#   type: str
+#   choices:
+#     - app
+#     - lib
+
+# Internal config
+_subdirectory: src
+_exclude:
+  - /macros
+_skip_if_exists:
+  - pyproject.toml
+_min_copier_version: 6.0.0a6
+# TODO: remove below with a7+
+_templates_suffix: .jinja
+_envops:
+  block_start_string: "{%"
+  block_end_string: "%}"
+  comment_start_string: "{#"
+  comment_end_string: "#}"
+  keep_trailing_newline: true
+  variable_start_string: "{{"
+  variable_end_string: "}}"
+_tasks:
+  # Initialize poetry and git
+  - git log &>/dev/null || poetry lock -q
+  - git log &>/dev/null || poetry show --tree | grep '^\w' | awk '{ print $1 }' | sed 's/$/@latest/' | xargs poetry add -Dq
+  - git log &>/dev/null || git init
+  - git log &>/dev/null || git add --all
+  - git log &>/dev/null || git commit -qm 'initial commit'
+  - git log &>/dev/null || echo gh repo create -y {{repo_username}}/{{repo_name}} {% if private %}--private{% else %}--public{% endif %}

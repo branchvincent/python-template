@@ -1,0 +1,9 @@
+# {{project_name | replace('_', ' ') | title}}
+
+[![CI](https://github.com/{{repo_username}}/{{repo_name}}/workflows/CI/badge.svg)](https://github.com/{{repo_username}}/{{repo_name}}/actions?query=workflow%3ACI)
+{% if not private -%}
+[![pypi version](https://img.shields.io/pypi/v/{{project_name}}.svg)](https://pypi.org/project/{{project_name}}/)
+{% endif -%}
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+{{project_description}}
