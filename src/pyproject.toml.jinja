@@ -11,7 +11,7 @@ python = "^3.9"
 
 [tool.poetry.dev-dependencies]
 black = "*"
-flake8 = "*"
+flakehell = "*"
 isort = "*"
 {% if docs -%}
 mkdocs = "*"
@@ -29,6 +29,15 @@ docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
 {%- endif %}
 lint = { cmd = "pre-commit run --all-files", help = "Run linters and formatters" }
 test = { cmd = "pytest", help = "Run tests" }
+
+[tool.flakehell]
+max_line_length = 88
+
+[tool.flakehell.plugins]
+mccabe = ["+*"]
+pycodestyle = ["+*", "-E203", "-W503", "-W504"]
+pyflakes = ["+*"]
+pylint = ["+*"]
 
 [tool.isort]
 profile = "black"
