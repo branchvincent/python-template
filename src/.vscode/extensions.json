@@ -1,5 +1,5 @@
 // -*- mode: jsonc -*-
 {
   // See more at https://go.microsoft.com/fwlink/?LinkId=827846
-  "recommendations": ["ms-python.python"]
+  "recommendations": ["ms-python.python", "ms-python.vscode-pylance"]
 }
