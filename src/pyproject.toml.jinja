@@ -18,11 +18,11 @@ mkdocs = "*"
 mkdocs-material = "*"
 {%- endif %}
 mypy = "*"
-poethepoet = "*"
 pre-commit = "*"
 pytest = "*"
+taskipy = "*"
 
-[tool.poe.tasks]
+[tool.taskipy.tasks]
 clean = { cmd = "rm -rf .mypy_cache/ .pytest_cache/ build/ dist/ *.egg-info", help = "Remove build artifacts" }
 {% if docs -%}
 docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
