@@ -9,7 +9,7 @@ A [Copier](https://github.com/copier-org/copier) template for a Python package b
 > **Requires**: copier>=6.0.0a6
 
 ```sh
-copier gh:branchvincent/cookiecutter-python <dest>
+copier gh:branchvincent/python-template <dest>
 ```
 
 ## Features
