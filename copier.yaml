@@ -51,9 +51,9 @@ _envops:
   variable_end_string: "}}"
 _tasks:
   # Initialize poetry and git
-  - git log &>/dev/null || poetry lock -q
-  - git log &>/dev/null || poetry show --tree | grep '^\w' | awk '{ print $1 }' | sed 's/$/@latest/' | xargs poetry add -Dq
-  - git log &>/dev/null || git init
-  - git log &>/dev/null || git add --all
-  - git log &>/dev/null || git commit -qm 'initial commit'
-  - git log &>/dev/null || echo gh repo create -y {{repo_username}}/{{repo_name}} {% if private %}--private{% else %}--public{% endif %}
+  - git log 2>&1 > /dev/null || poetry lock -q
+  - git log 2>&1 > /dev/null || poetry show --tree | grep '^\w' | awk '{ print $1 }' | sed 's/$/@latest/' | xargs poetry add -Dq
+  - git log 2>&1 > /dev/null || git init
+  - git log 2>&1 > /dev/null || git add --all
+  - git log 2>&1 > /dev/null || git commit -qm 'initial commit'
+  - printf "To create your repo:\n\tgh repo create -y {{repo_username}}/{{repo_name}} {% if private %}--private{% else %}--public{% endif %}"

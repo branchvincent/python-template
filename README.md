@@ -17,7 +17,7 @@ copier gh:branchvincent/python-template <dest>
 - Package manager: [Poetry](https://python-poetry.org/)
 - Formatting: [black](https://black.readthedocs.io/en/stable/) and [isort](https://isort.readthedocs.io/en/latest/)
 - Testing: [pytest](https://docs.pytest.org/en/latest/)
-- Linting: [flakehell](https://flakehell.readthedocs.io/) and [pre-commit](https://pre-commit.com/)
+- Linting: [flake8](https://flake8.pycqa.org/) and [pre-commit](https://pre-commit.com/)
 - Typing: [mypy](https://mypy.readthedocs.io/en/stable/)
 - Task runner: [taskipy](https://github.com/illBeRoy/taskipy)
 - CI/CD: [Github Actions](https://docs.github.com/en/actions)

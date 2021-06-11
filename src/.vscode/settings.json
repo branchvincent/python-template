@@ -11,7 +11,7 @@
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
-  "python.linting.flake8Path": "flake8helled",
+  "python.linting.flake8Path": "pflake8",
   "python.linting.mypyEnabled": true,
   // Testing
   "python.testing.pytestEnabled": true
