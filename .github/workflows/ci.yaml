@@ -23,7 +23,12 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git config --global init.defaultBranch example
-          git init tmp/
-          copier -f -d docker=True -d docs=True . tmp/ && cd tmp/
+          git config --global init.defaultBranch rendered
+          git init build/
+          copier -f -d docker=True -d docs=True . build/ && cd build/
           poetry run task lint
+      - name: Push rendered project
+        run: |
+          cd build/
+          git config --local http.https://github.com/.extraheader "$(git -C .. config --get http.https://github.com/.extraheader)"
+          git push -fu $(git -C .. config --get remote.origin.url) rendered

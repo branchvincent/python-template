@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/branchvincent/python-template/workflows/CI/badge.svg)](https://github.com/branchvincent/python-template/actions/workflows/ci.yaml)
 
-A [Copier](https://github.com/copier-org/copier) template for a Python package based on my favorite tools.
+A [Copier](https://github.com/copier-org/copier) template for a Python package based on my favorite tools. See the [rendered version](https://github.com/branchvincent/python-template/tree/rendered).
 
 ## Usage
 
