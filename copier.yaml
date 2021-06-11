@@ -22,7 +22,7 @@ private:
   default: True
 docs:
   type: bool
-  default: True
+  default: False
 docker:
   type: bool
   default: False
