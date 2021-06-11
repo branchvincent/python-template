@@ -1,0 +1,30 @@
+name: Docs
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Set up cache
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: ${{ runner.os }}-venv-py3.9-${{ hashFiles('**/poetry.lock') }}
+      - name: Set up Poetry
+        run: |
+          pip install poetry
+          poetry config virtualenvs.in-project true
+      - name: Install package
+        run: poetry install
+      - name: Publish docs
+        run: poetry run mkdocs gh-deploy
