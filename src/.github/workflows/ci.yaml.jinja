@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  POETRY_VIRTUALENVS_IN_PROJECT: true
-
-{% raw -%}
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -19,60 +15,29 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - run: pip install poetry
+      - run: Set up Poetry
+        run: |
+          pip install poetry
+          poetry config virtualenvs.in-project true
       - name: Set up cache
         uses: actions/cache@v2
         with:
           path: .venv
-          key: ${{ runner.os }}-venv-py3.9-${{ hashFiles('**/poetry.lock') }}
+          key: {% raw %}${{ runner.os }}-venv-py3.9-${{ hashFiles('**/poetry.lock') }}{% endraw %}
       - name: Install package
         run: poetry install
       - name: Run linters
         run: poetry run task lint
       - name: Run tests
         run: poetry run task test
-
-  release:
-    needs: lint
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Bump version
-        uses: TriPSs/conventional-changelog-action@v3
-        id: version
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          git-user-name: "GitHub Actions"
-          git-user-email: "action@github.com"
-          version-file: pyproject.toml
-          version-path: tool.poetry.version
-          preset: conventionalcommits
-          output-file: false
-      - name: Set new commit hash
-        run: echo "SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
-      - name: Create release
-        uses: actions/create-release@v1
-        if: ${{ steps.version.outputs.skipped == 'false' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          release_name: ${{ steps.version.outputs.tag }}
-          body: ${{ steps.version.outputs.clean_changelog }}
-          commitish: ${{ env.SHA }}
-{%- endraw %}
-      {% if not private -%}
-      {% raw -%}
-      - name: Publish to PyPI
-        if: ${{ steps.version.outputs.skipped == 'false' }}
-        env:
-          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+      - name: Release
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
-          pip install poetry
-          poetry publish --build --no-interaction
-      {%- endraw %}
-      {%- endif %}
+          pip install python-semantic-release
+          git config --global user.name "github-actions"
+          git config --global user.email "action@github.com"
+          poetry run task release
+        {% if not private -%}
+        env:
+          PYPI_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
+        {%- endif -%}
