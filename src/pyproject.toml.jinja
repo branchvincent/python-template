@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "{{project_description}}"
 authors = ["{{author_name}} <{{author_email}}>"]
 packages = [{ include = "{{project_name}}", from = "src" }]
-{% if private %}classifiers = ["Private :: Do Not Upload"]{% endif %}
+{% if private %}classifiers = ["Private :: Do Not Upload"]{%- endif %}
 
 [tool.poetry.dependencies]
 python = "^3.9"
