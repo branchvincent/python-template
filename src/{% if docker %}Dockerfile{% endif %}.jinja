@@ -5,8 +5,8 @@ WORKDIR /app
 FROM base AS builder
 
 # Install poetry
-RUN pip install --no-cache-dir poetry~=1.1
-RUN poetry config virtualenvs.in-project true
+RUN pip install --no-cache-dir poetry~=1.1 \
+    && poetry config virtualenvs.in-project true
 
 # Install deps
 COPY pyproject.toml poetry.lock ./
