@@ -37,7 +37,8 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "action@github.com"
           poetry run task release
-        {% if not private -%}
         env:
+          GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          {% if not private -%}
           PYPI_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
-        {%- endif -%}
+          {% endif -%}
