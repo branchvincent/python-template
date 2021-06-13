@@ -1,4 +1,8 @@
 repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.11.0
+    hooks:
+      - id: pyupgrade
   - repo: local
     hooks:
       - id: isort
@@ -22,7 +26,3 @@ repos:
         require_serial: true
         language: system
         types: [python]
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v2.11.0
-    hooks:
-      - id: pyupgrade
