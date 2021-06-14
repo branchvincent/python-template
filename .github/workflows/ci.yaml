@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
 
 jobs:
   test:
@@ -26,6 +25,7 @@ jobs:
           copier -f -d docker=True -d docs=True . build/ && cd build/
           poetry run task lint
       - name: Push rendered project
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           REMOTE=https://${GITHUB_ACTOR}:${{ secrets.GH_PAT }}@github.com/${GITHUB_REPOSITORY}.git
           git -C build push -fu $REMOTE HEAD:rendered

@@ -5,7 +5,9 @@ description = "{{project_description}}"
 authors = ["{{author_name}} <{{author_email}}>"]
 repository = "https://github.com/{{repo_username}}/{{repo_name}}"
 packages = [{ include = "{{project_name}}", from = "src" }]
-{% if private %}classifiers = ["Private :: Do Not Upload"]{%- endif %}
+{%- if private %}
+classifiers = ["Private :: Do Not Upload"]
+{%- endif %}
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -13,7 +15,6 @@ python = "^3.9"
 [tool.poetry.dev-dependencies]
 black = "*"
 flake8 = "*"
-pyproject-flake8 = "*"
 isort = "*"
 {% if docs -%}
 mkdocs = "*"
@@ -21,6 +22,7 @@ mkdocs-material = "*"
 {% endif -%}
 mypy = "*"
 pre-commit = "*"
+pyproject-flake8 = "*"
 pytest = "*"
 taskipy = "*"
 
