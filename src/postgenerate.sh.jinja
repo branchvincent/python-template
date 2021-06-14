@@ -36,5 +36,5 @@ To create your repo:
     $ gh repo create -y {{repo_username}}/{{repo_name}} {% if private %}--private{% else %}--public{% endif %}
 
 To create your PAT:
-    $ gh secret set GITHUB_PAT -b \$GITHUB_TOKEN
+    $ gh secret set GH_PAT -b \$TOKEN
 EOF

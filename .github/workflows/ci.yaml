@@ -23,10 +23,9 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git config --global init.defaultBranch rendered
           copier -f -d docker=True -d docs=True . build/ && cd build/
           poetry run task lint
       - name: Push rendered project
         run: |
           REMOTE=https://${GITHUB_ACTOR}:${{ secrets.GH_PAT }}@github.com/${GITHUB_REPOSITORY}.git
-          git -C build push -fu $REMOTE rendered
+          git -C build push -fu $REMOTE HEAD:rendered
