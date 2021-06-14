@@ -28,8 +28,5 @@ jobs:
           poetry run task lint
       - name: Push rendered project
         run: |
-          cd build/
-          mv .github .github_/ && cp -R ../.github/ .github/
-          git commit -q --amend --no-edit
-          git config --local http.https://github.com/.extraheader "$(git -C .. config --get http.https://github.com/.extraheader)"
-          git push -fu $(git -C .. config --get remote.origin.url) rendered
+          REMOTE=https://${GITHUB_ACTOR}:${{ secrets.GH_PAT }}@github.com/${GITHUB_REPOSITORY}.git
+          git -C build push -fu $REMOTE rendered
