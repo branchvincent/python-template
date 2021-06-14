@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+[ -n "${DEBUG:-}" ] && set -x
+
+GREEN="$(tput setaf 2 2>/dev/null || printf '')"
+RESET="$(tput sgr0 2>/dev/null || printf '')"
+
+# If already initialized, abort
+if [ -d .git ] || [ -n "${COPIER_SKIP_TASKS:-}" ]; then
+    exit 0
+fi
+
+# Delete this script
+rm -- "$0"
+
+echo -n "Resolving deps..."
+poetry lock -q
+poetry show --tree | grep '^\w' | awk '{ print $1 }' | sed 's/$/@latest/' | xargs poetry add -q -D --lock >/dev/null
+echo -e " ${GREEN}✔${RESET}"
+
+echo -n "Installing deps..."
+poetry install >/dev/null
+echo -e " ${GREEN}✔${RESET}"
+
+echo -n "Initializing git..."
+git init -q
+git add --all
+git commit -qm 'initial commit'
+echo -e " ${GREEN}✔${RESET}"
+
+cat <<EOF
+Done!
+
+To create your repo:
+    $ gh repo create -y {{repo_username}}/{{repo_name}} {% if private %}--private{% else %}--public{% endif %}
+
+To create your PAT:
+    $ gh secret set GITHUB_PAT -b \$GITHUB_TOKEN
+EOF

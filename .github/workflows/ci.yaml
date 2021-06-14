@@ -24,7 +24,6 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git config --global init.defaultBranch rendered
-          git init build/
           copier -f -d docker=True -d docs=True . build/ && cd build/
           poetry run task lint
       - name: Push rendered project
