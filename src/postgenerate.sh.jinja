@@ -6,13 +6,13 @@ set -euo pipefail
 GREEN="$(tput setaf 2 2>/dev/null || printf '')"
 RESET="$(tput sgr0 2>/dev/null || printf '')"
 
+# Delete this file
+rm -- "$0"
+
 # If already initialized, abort
-if [ -d .git ] || [ -n "${COPIER_SKIP_TASKS:-}" ]; then
+if [ -d .git ] || [ -n "${COPIER_SKIP_INIT:-}" ]; then
     exit 0
 fi
-
-# Delete this script
-rm -- "$0"
 
 echo -n "Resolving deps..."
 poetry lock -q
