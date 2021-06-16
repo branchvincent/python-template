@@ -6,8 +6,7 @@ set -euo pipefail
 GREEN="$(tput setaf 2 2>/dev/null || printf '')"
 RESET="$(tput sgr0 2>/dev/null || printf '')"
 
-# Delete this file
-rm -- "$0"
+rm -- "$0" # Self destruct
 
 # If already initialized, abort
 if [ -d .git ] || [ -n "${COPIER_SKIP_INIT:-}" ]; then

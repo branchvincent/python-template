@@ -1,13 +1,11 @@
 # {{project_name | replace('_', ' ') | title}}
 
-[![CI](https://github.com/{{repo_username}}/{{repo_name}}/workflows/CI/badge.svg)](https://github.com/{{repo_username}}/{{repo_name}}/actions/workflows/ci.yaml)
+[![ci](https://github.com/{{repo_username}}/{{repo_name}}/workflows/CI/badge.svg)](https://github.com/{{repo_username}}/{{repo_name}}/actions/workflows/ci.yaml)
 {% if not private -%}
 [![pypi version](https://img.shields.io/pypi/v/{{project_name}}.svg)](https://pypi.org/project/{{project_name}}/)
-[![pypi pyversions](https://img.shields.io/pypi/pyversions/{{project_name}})](https://pypi.org/project/{{project_name}}/)
 {% endif -%}
 [![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 {{project_description}}
 

@@ -33,7 +33,6 @@ docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
 {% endif -%}
 lint = { cmd = "pre-commit run --all-files", help = "Run linters and formatters" }
 test = { cmd = "pytest", help = "Run tests" }
-release = { cmd = "semantic-release publish", help = "Release new version" }
 
 [tool.flake8]
 max-line-length = 88
@@ -48,18 +47,6 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-
-[tool.semantic_release]
-branch = "main"
-version_variable = "pyproject.toml:version"
-commit_subject = "chore(release): v{version}"
-commit_message = "[ci skip]"
-commit_author = "github-actions <action@github.com>"
-build_command = "poetry build"
-{% if private -%}
-upload_to_pypi = false
-{% endif -%}
-changelog_file = ".gitignore"
 
 [build-system]
 requires = ["poetry-core>=1.0"]

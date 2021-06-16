@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     steps:
@@ -30,15 +30,51 @@ jobs:
         run: poetry run task lint
       - name: Run tests
         run: poetry run task test
-      - name: Release
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          pip install python-semantic-release
-          git config --global user.name "github-actions"
-          git config --global user.email "action@github.com"
-          poetry run task release
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'cd skip')
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bump version
+        uses: TriPSs/conventional-changelog-action@v3
+        id: version
+        with:
+          github-token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          git-user-name: "GitHub Actions"
+          git-user-email: "action@github.com"
+          version-file: pyproject.toml
+          version-path: tool.poetry.version
+          preset: conventionalcommits
+          output-file: false
+      - name: Publish to GitHub
+        if: steps.version.outputs.skipped == 'false'
+        run: gh release create "$TAG" --notes "$BODY"
+        env:
+          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          TAG: {% raw %}${{ steps.version.outputs.tag }}{% endraw %}
+          BODY: {% raw %}${{ steps.version.outputs.clean_changelog }}{% endraw %}
+      {% if not private -%}
+      - name: Publish to PyPI
+        if: steps.version.outputs.skipped == 'false'
+        run: pip install poetry && poetry publish --build
         env:
           GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          {% if not private -%}
           PYPI_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
-          {% endif -%}
+      {% endif -%}
+      {% if docker -%}
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        if: steps.version.outputs.skipped == 'false'
+      - name: Publish to DockerHub
+        if: steps.version.outputs.skipped == 'false'
+        run: |
+          echo "$PASSWORD" | docker login https://ghcr.io -u "$USERNAME" --password-stdin
+          docker build -t $REPO:$TAG -t $REPO:latest .
+          docker push -a $REPO
+        env:
+          USERNAME: {% raw %}${{ github.actor }}{% endraw %}
+          PASSWORD: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          REPO: ghcr.io/{% raw %}${{ github.repository }}{% endraw %}
+          TAG: {% raw %}${{ steps.version.outputs.tag }}{% endraw %}
+      {% endif -%}

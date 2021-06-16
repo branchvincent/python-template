@@ -52,4 +52,4 @@ Releasing is fully automated via our [CI pipeline](.github/workflows/ci.yaml). O
 1. Determine if a new version should be released (using [conventional commits](https://www.conventionalcommits.org/))
 1. If so, bump the version and publish a new release
 
-To override this behavior, include `[ci skip]` in your commit message.
+To override this behavior, include `[cd skip]` in your commit message.
