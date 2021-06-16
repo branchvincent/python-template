@@ -28,6 +28,9 @@ git add --all
 git commit -qm 'initial commit'
 echo -e " ${GREEN}✔${RESET}"
 
+# Direnv
+[ -x "$(command -v direnv)" ] && touch .envrc && direnv allow
+
 cat <<EOF
 Done!
 

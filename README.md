@@ -15,18 +15,24 @@ copier gh:branchvincent/python-template <dest>
 ## Features
 
 - Package manager: [Poetry](https://python-poetry.org/)
-- Formatting: [black](https://black.readthedocs.io/en/stable/) and [isort](https://isort.readthedocs.io/en/latest/)
+- Formatting: [Black](https://black.readthedocs.io/en/stable/) and [isort](https://isort.readthedocs.io/en/latest/)
 - Testing: [pytest](https://docs.pytest.org/en/latest/)
 - Linting: [flake8](https://flake8.pycqa.org/) and [pre-commit](https://pre-commit.com/)
 - Typing: [mypy](https://mypy.readthedocs.io/en/stable/)
 - Task runner: [taskipy](https://github.com/illBeRoy/taskipy)
 - CI/CD: [Github Actions](https://docs.github.com/en/actions)
-  - Automated versioning and release notes via [Conventional Commits](https://www.conventionalcommits.org/)
-  - Automated [PyPI](https://pypi.org/) upload
+  - Automated versioning, changelog, and release via [Conventional Commits](https://www.conventionalcommits.org/)
   - Automated dependency updates via [Dependabot](https://dependabot.com/)
 - Editor integration: [VS Code](https://code.visualstudio.com/)
 - Documentation: [MkDocs](https://www.mkdocs.org/) (optional)
 - Docker support (optional)
+
+## Recommended Tools
+
+- Managing Python versions? [pyenv](https://github.com/pyenv/pyenv)
+- Building an API? [FastAPI](https://fastapi.tiangolo.com/)
+- Building a CLI? [typer](https://typer.tiangolo.com/) or [click](https://click.palletsprojects.com/)
+- Analyzing data? [pandas](https://pandas.pydata.org/)
 
 ## Goals
 
