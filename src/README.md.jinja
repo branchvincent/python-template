@@ -12,7 +12,7 @@
 ## Installation
 
 ```sh
-pip install {{project_name}}
+pip install {{project_name | lower | replace(' ', '-') | replace('_', '-')}}
 ```
 
 ## Usage
