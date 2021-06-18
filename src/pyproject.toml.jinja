@@ -3,6 +3,7 @@ name = "{{project_name | lower | replace(' ', '-') | replace('_', '-')}}"
 version = "0.1.0"
 description = "{{project_description}}"
 authors = ["{{author_name}} <{{author_email}}>"]
+readme = "README.md"
 repository = "https://github.com/{{repo_username}}/{{repo_name}}"
 packages = [{ include = "{{project_name}}", from = "src" }]
 {%- if private %}
