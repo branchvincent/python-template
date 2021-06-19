@@ -60,7 +60,6 @@ jobs:
         if: steps.version.outputs.skipped == 'false'
         run: pip install poetry && poetry publish --build
         env:
-          GH_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           POETRY_PYPI_TOKEN_PYPI: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
       {% endif -%}
       {% if docker -%}
