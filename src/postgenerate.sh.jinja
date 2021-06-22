@@ -14,12 +14,11 @@ if [ -d .git ] || [ -n "${COPIER_SKIP_INIT:-}" ]; then
 fi
 
 echo -n "Resolving deps..."
-poetry lock -q
-poetry show --tree | grep '^\w' | awk '{ print $1 }' | sed 's/$/@latest/' | xargs poetry add -q -D --lock >/dev/null
+pdm lock >/dev/null
 echo -e " ${GREEN}✔${RESET}"
 
 echo -n "Installing deps..."
-poetry install >/dev/null
+pdm install >/dev/null
 echo -e " ${GREEN}✔${RESET}"
 
 echo -n "Initializing git..."
