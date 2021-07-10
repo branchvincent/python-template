@@ -33,6 +33,7 @@ copier gh:branchvincent/python-template <dest>
 - Building an API? [FastAPI](https://fastapi.tiangolo.com/)
 - Building a CLI? [typer](https://typer.tiangolo.com/) or [click](https://click.palletsprojects.com/)
 - Analyzing data? [pandas](https://pandas.pydata.org/)
+- Logging? [Loguru](https://github.com/Delgan/loguru)
 
 ## Goals
 
