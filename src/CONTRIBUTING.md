@@ -41,7 +41,7 @@ poetry run task lint
 To run tests via [pytest](https://docs.pytest.org/en/latest/):
 
 ```sh
-poetry run test
+poetry run task test
 ```
 
 ## Releasing
