@@ -6,7 +6,7 @@ A [Copier](https://github.com/copier-org/copier) template for a Python package b
 
 ## Usage
 
-> **Requires**: copier>=6.0.0a6
+> **Requires**: copier>=6.0.0a7
 
 ```sh
 copier gh:branchvincent/python-template <dest>
