@@ -1,6 +1,8 @@
 // -*- mode: jsonc -*-
 {
-  "python.pythonPath": ".venv/bin/python",
+  // PDM
+  "python.analysis.extraPaths": ["__pypackages__/3.9/lib"],
+  "python.autoComplete.extraPaths": ["__pypackages__/3.9/lib"],
   // Formatters
   "python.formatting.provider": "black",
   "editor.formatOnSave": true,

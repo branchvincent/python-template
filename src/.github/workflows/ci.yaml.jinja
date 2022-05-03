@@ -12,24 +12,20 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: pdm-project/setup-pdm@v2
         with:
           python-version: 3.9
-      - name: Set up Poetry
-        run: |
-          pip install poetry
-          poetry config virtualenvs.in-project true
       - name: Set up cache
         uses: actions/cache@v2
         with:
-          path: .venv
-          key: {% raw %}${{ runner.os }}-venv-py3.9-${{ hashFiles('**/poetry.lock') }}{% endraw %}
+          path: __pypackages__
+          key: {% raw %}${{ runner.os }}-pdm-py3.9-${{ hashFiles('**/pdm.lock') }}{% endraw %}
       - name: Install package
-        run: poetry install
+        run: pdm install
       - name: Run linters
-        run: poetry run task lint
+        run: pdm run lint
       - name: Run tests
-        run: poetry run task test
+        run: pdm run test
 
   release:
     needs: build
@@ -58,9 +54,9 @@ jobs:
       {% if not private -%}
       - name: Publish to PyPI
         if: steps.version.outputs.skipped == 'false'
-        run: pip install poetry && poetry publish --build
+        run: pip install pdm-publish && pdm publish
         env:
-          POETRY_PYPI_TOKEN_PYPI: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
+          PDM_PUBLISH_PASSWORD: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
       {% endif -%}
       {% if docker -%}
       - uses: satackey/action-docker-layer-caching@v0.0.11

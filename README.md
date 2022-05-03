@@ -14,7 +14,7 @@ copier gh:branchvincent/python-template <dest>
 
 ## Features
 
-- Package manager: [Poetry](https://python-poetry.org/)
+- Package manager: [PDM](https://pdm.fming.dev/)
 - Formatting: [Black](https://black.readthedocs.io/en/stable/) and [isort](https://isort.readthedocs.io/en/latest/)
 - Testing: [pytest](https://docs.pytest.org/en/latest/)
 - Linting: [flake8](https://flake8.pycqa.org/) and [pre-commit](https://pre-commit.com/)

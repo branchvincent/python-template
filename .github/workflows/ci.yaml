@@ -17,13 +17,13 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip
       - name: Install dependencies
-        run: pip install poetry~=1.1 'copier>=6.0.0a6'
+        run: pip install pdm~=1.6 'copier>=6.0.0a6'
       - name: Run test
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           copier -f -d docker=True -d docs=True . build/ && cd build/
-          poetry run task lint
+          pdm run lint
       - name: Push rendered project
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
