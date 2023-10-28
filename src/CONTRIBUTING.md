@@ -26,8 +26,7 @@ poetry run task --list
 
 To ensure code quality, we use the following tools:
 
-- Formatting: [black](https://black.readthedocs.io/en/stable/) and [isort](https://isort.readthedocs.io/en/latest/)
-- Linting: [flake8](http://flake8.pycqa.org/en/latest/)
+- Formatting and linting: [ruff](https://docs.astral.sh/ruff/)
 - Type checking: [mypy](https://mypy.readthedocs.io/en/stable/)
 
 To run these:

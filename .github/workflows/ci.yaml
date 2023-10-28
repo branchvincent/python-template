@@ -8,21 +8,18 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
       - name: Install dependencies
-        run: pip install poetry~=1.1 'copier>=6.0.0a6'
+        run: |
+          pipx install copier
+          pipx install poetry
       - name: Run test
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          copier -f -d docker=True -d docs=True . build/ && cd build/
+          copier copy --trust -f -d docker=True -d docs=True . build/ && cd build/
           poetry run task lint
       - name: Push rendered project
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'

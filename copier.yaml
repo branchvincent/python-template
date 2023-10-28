@@ -38,6 +38,5 @@ _exclude:
   - /macros
 _skip_if_exists:
   - pyproject.toml
-_min_copier_version: 6.0.0a7
 _tasks:
   - bash postgenerate.sh

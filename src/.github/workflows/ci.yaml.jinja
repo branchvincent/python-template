@@ -9,21 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
+      - uses: actions/checkout@v4
       - name: Set up Poetry
-        run: |
-          pip install poetry
-          poetry config virtualenvs.in-project true
-      - name: Set up cache
-        uses: actions/cache@v2
+        run: pipx install poetry
+      - uses: actions/setup-python@v4
         with:
-          path: .venv
-          key: {% raw %}${{ runner.os }}-venv-py3.9-${{ hashFiles('**/poetry.lock') }}{% endraw %}
+          python-version: 3.12
+          cache: poetry
       - name: Install package
         run: poetry install
       - name: Run linters
@@ -36,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'cd skip')
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Bump version
         uses: TriPSs/conventional-changelog-action@v3
         id: version
@@ -58,7 +51,7 @@ jobs:
       {% if not private -%}
       - name: Publish to PyPI
         if: steps.version.outputs.skipped == 'false'
-        run: pip install poetry && poetry publish --build
+        run: pipx run poetry publish --build
         env:
           POETRY_PYPI_TOKEN_PYPI: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
       {% endif -%}

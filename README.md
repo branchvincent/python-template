@@ -6,18 +6,16 @@ A [Copier](https://github.com/copier-org/copier) template for a Python package b
 
 ## Usage
 
-> **Requires**: copier>=6.0.0a7
-
 ```sh
-copier gh:branchvincent/python-template <dest>
+pipx run copier copy --trust gh:branchvincent/python-template <dest>
 ```
 
 ## Features
 
 - Package manager: [Poetry](https://python-poetry.org/)
-- Formatting: [Black](https://black.readthedocs.io/en/stable/) and [isort](https://isort.readthedocs.io/en/latest/)
+- Formatting: [Ruff](https://docs.astral.sh/ruff/formatter/)
 - Testing: [pytest](https://docs.pytest.org/en/latest/)
-- Linting: [flake8](https://flake8.pycqa.org/) and [pre-commit](https://pre-commit.com/)
+- Linting: [Ruff](https://docs.astral.sh/ruff/linter/) and [pre-commit](https://pre-commit.com/)
 - Typing: [mypy](https://mypy.readthedocs.io/en/stable/)
 - Task runner: [taskipy](https://github.com/illBeRoy/taskipy)
 - CI/CD: [Github Actions](https://docs.github.com/en/actions)
