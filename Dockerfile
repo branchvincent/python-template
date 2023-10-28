@@ -1,0 +1,24 @@
+FROM python:3.12-alpine AS base
+WORKDIR /app
+
+### Builder ###
+FROM base AS builder
+
+# Install poetry
+RUN pip install --no-cache-dir poetry~=1.6 \
+    && poetry config virtualenvs.in-project true
+
+# Install deps
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-root --only=main
+
+# Add source
+COPY . .
+RUN poetry install --only=main
+
+### Runner ###
+FROM base AS runner
+COPY --from=builder /app ./
+ENV PATH="/app/.venv/bin:$PATH"
+ENTRYPOINT ["python", "-m", "project_name"]
+CMD ["--help"]

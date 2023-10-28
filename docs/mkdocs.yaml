@@ -1,0 +1,24 @@
+site_name: "project_name"
+site_description: "Project name"
+site_url: "https://branchvincent.github.io/project-name"
+repo_url: https://github.com/branchvincent/project-name
+repo_name: "branchvincent/project-name"
+docs_dir: src
+
+theme:
+  name: material
+
+# See more at https://facelessuser.github.io/pymdown-extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - toc:
+      permalink: True
+
+plugins:
+  - search
+
+nav:
+  - Overview: index.md

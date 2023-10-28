@@ -1,0 +1,18 @@
+// -*- mode: jsonc -*-
+{
+  "python.pythonPath": ".venv/bin/python",
+  // Formatters
+  "python.formatting.provider": "black",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true // isort
+  },
+  // Linters
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Path": "pflake8",
+  "python.linting.mypyEnabled": true,
+  // Testing
+  "python.testing.pytestEnabled": true
+}
