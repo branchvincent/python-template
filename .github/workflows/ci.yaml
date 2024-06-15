@@ -10,11 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
       - name: Install dependencies
-        run: |
-          pipx install copier
-          pipx install poetry
+        run: pipx install copier poetry
       - name: Run test
         run: |
           git config --global user.name "GitHub Action"

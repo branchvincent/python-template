@@ -34,7 +34,7 @@ test = { cmd = "pytest", help = "Run tests" }
 
 [tool.ruff]
 fix = true
-select = ["B", "E", "F", "I", "SIM", "UP"]
+lint = { select = ["B", "E", "F", "I", "SIM", "UP"] }
 
 [tool.mypy]
 strict = true
