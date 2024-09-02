@@ -4,17 +4,14 @@ WORKDIR /app
 ### Builder ###
 FROM base AS builder
 
-# Install poetry
-RUN pip install --no-cache-dir poetry~=2.1 \
-    && poetry config virtualenvs.in-project true
-
 # Install deps
-COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-root --only=main
+RUN pip install --no-cache-dir uv~=0.8.0
+COPY pyproject.toml uv.lock ./
+RUN uv sync --frozen --no-dev --no-install-project
 
 # Add source
 COPY . .
-RUN poetry install --only=main
+RUN uv sync --frozen --no-dev
 
 ### Runner ###
 FROM base AS runner

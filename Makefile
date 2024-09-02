@@ -9,8 +9,8 @@ build:
 
 .PHONY: test
 test:
-	@poetry -C build run task lint
-	@poetry -C build run task test -q
+	@uv --directory=build run task lint
+	@uv --directory=build run task test -q
 
 .PHONY: release
 release:

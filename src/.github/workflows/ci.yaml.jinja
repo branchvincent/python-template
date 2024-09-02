@@ -11,18 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Poetry
-        run: pipx install poetry
+      - name: Set up uv
+        run: pipx install uv
       - uses: actions/setup-python@v5
         with:
           python-version: 3.13
-          cache: poetry
       - name: Install package
-        run: poetry install
+        run: uv sync --frozen
       - name: Run linters
-        run: poetry run task lint
+        run: uv run task lint
       - name: Run tests
-        run: poetry run task test
+        run: uv run task test
 
   release:
     needs: build
@@ -51,9 +50,9 @@ jobs:
       {% if not private -%}
       - name: Publish to PyPI
         if: steps.version.outputs.skipped == 'false'
-        run: pipx run poetry publish --build
+        run: uv build && uv publish
         env:
-          POETRY_PYPI_TOKEN_PYPI: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
+          UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
       {% endif -%}
       {% if docker -%}
       - uses: satackey/action-docker-layer-caching@v0.0.11

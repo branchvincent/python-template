@@ -4,23 +4,18 @@ version = "0.1.0"
 description = "{{project_description}}"
 readme = "README.md"
 authors = [{ name = "{{author_name}}", email = "{{author_email}}" }]
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.10"
 dependencies = []
 urls.repository = "https://github.com/{{repo_username}}/{{repo_name}}"
 {%- if private %}
 classifiers = ["Private :: Do Not Upload"]
 {%- endif %}
 
-[tool.poetry.group.dev.dependencies]
-{% if docs -%}
-mkdocs = ">=1"
-mkdocs-material = ">=9"
-{% endif -%}
-mypy = ">=1"
-pre-commit = ">=4"
-pytest = ">=8"
-ruff = ">=0.11"
-taskipy = ">=1"
+[dependency-groups]
+{%- if docs %}
+docs = ["mkdocs", "mkdocs-material"]
+{%- endif %}
+dev = ["mypy", "pre-commit", "pytest", "ruff", "taskipy"]
 
 [tool.taskipy.tasks]
 clean = { cmd = "rm -rf .*_cache/ dist/", help = "Remove build artifacts" }
@@ -30,10 +25,6 @@ docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
 lint = { cmd = "pre-commit run --all-files", help = "Run linters and formatters" }
 test = { cmd = "pytest", help = "Run tests" }
 
-[tool.ruff]
-fix = true
-lint = { select = ["B", "E", "F", "I", "SIM", "UP"] }
-
 [tool.mypy]
 strict = true
 ignore_missing_imports = true
@@ -41,6 +32,10 @@ ignore_missing_imports = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
+[tool.ruff]
+fix = true
+lint = { select = ["B", "E", "F", "I", "SIM", "UP"] }
+
 [build-system]
-requires = ["poetry-core>=2.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"

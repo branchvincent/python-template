@@ -1,25 +1,25 @@
 # Contributing
 
-Before getting started, install [Poetry](https://python-poetry.org/docs/#installation).
+Before getting started, install [uv](https://docs.astral.sh/uv/getting-started/installation).
 
 ## Getting Started
 
 To install the project:
 
 ```sh
-poetry install
+uv sync
 ```
 
 Optionally, you can also install [pre-commit](https://pre-commit.com/) hooks:
 
 ```sh
-poetry run pre-commit install
+uv run pre-commit install
 ```
 
 Lastly, to see common tasks with [taskipy](https://github.com/illBeRoy/taskipy):
 
 ```sh
-poetry run task --list
+uv run task --list
 ```
 
 ## Linting
@@ -32,7 +32,7 @@ To ensure code quality, we use the following tools:
 To run these:
 
 ```sh
-poetry run task lint
+uv run task lint
 ```
 
 ## Testing
@@ -40,7 +40,7 @@ poetry run task lint
 To run tests via [pytest](https://docs.pytest.org/en/latest/):
 
 ```sh
-poetry run task test
+uv run task test
 ```
 
 ## Releasing
