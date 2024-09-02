@@ -9,21 +9,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Set up cache
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: ${{ runner.os }}-venv-py3.9-${{ hashFiles('**/poetry.lock') }}
       - name: Set up Poetry
-        run: |
-          pip install poetry
-          poetry config virtualenvs.in-project true
+        run: pipx install poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          cache: poetry
       - name: Install package
         run: poetry install
       - name: Publish docs
