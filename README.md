@@ -12,7 +12,7 @@ uvx copier copy --trust gh:branchvincent/python-template .
 
 ## Features
 
-- Package manager: [Poetry](https://python-poetry.org/)
+- Package manager: [uv](https://docs.astral.sh/uv/)
 - Formatting: [Ruff](https://docs.astral.sh/ruff/formatter/)
 - Testing: [pytest](https://docs.pytest.org/en/latest/)
 - Linting: [Ruff](https://docs.astral.sh/ruff/linter/) and [pre-commit](https://pre-commit.com/)
