@@ -39,4 +39,7 @@ _exclude:
 _skip_if_exists:
   - pyproject.toml
 _tasks:
-  - bash postgenerate.sh
+  - "[ -d .git ] || poetry install -q"
+  - "[ -d .git ] || git init -q && git add --all && git commit -qm 'initial commit'"
+  - "[ -d .git ] || touch .envrc"
+  - printf "To create your repo:\n\tgh repo create -y {{repo_username}}/{{repo_name}} {% if private %}--private{% else %}--public{% endif %}"
