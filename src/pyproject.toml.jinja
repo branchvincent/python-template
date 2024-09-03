@@ -15,14 +15,14 @@ python = "^3.10"
 
 [tool.poetry.group.dev.dependencies]
 {% if docs -%}
-mkdocs = "*"
-mkdocs-material = "*"
+mkdocs = ">=1"
+mkdocs-material = ">=9"
 {% endif -%}
-mypy = "*"
-pre-commit = "*"
-pytest = "*"
-ruff = "*"
-taskipy = "*"
+mypy = ">=1"
+pre-commit = ">=3"
+pytest = ">=8"
+ruff = ">=0.6"
+taskipy = ">=1"
 
 [tool.taskipy.tasks]
 clean = { cmd = "rm -rf .mypy_cache/ .pytest_cache/ .ruff_cache/ build/ dist/ *.egg-info", help = "Remove build artifacts" }
