@@ -25,7 +25,7 @@ ruff = ">=0.6"
 taskipy = ">=1"
 
 [tool.taskipy.tasks]
-clean = { cmd = "rm -rf .mypy_cache/ .pytest_cache/ .ruff_cache/ build/ dist/ *.egg-info", help = "Remove build artifacts" }
+clean = { cmd = "rm -rf .*_cache/ build/ dist/ *.egg-info", help = "Remove build artifacts" }
 {% if docs -%}
 docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
 {% endif -%}

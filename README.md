@@ -7,7 +7,7 @@ A [Copier](https://github.com/copier-org/copier) template for a Python package b
 ## Usage
 
 ```sh
-uvx copier copy --trust gh:branchvincent/python-template <dest>
+uvx copier copy --trust gh:branchvincent/python-template .
 ```
 
 ## Features
