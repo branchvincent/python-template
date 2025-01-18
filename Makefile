@@ -15,4 +15,4 @@ test:
 .PHONY: release
 release:
 	@git tag $(VERSION)
-	@git push --follow-tags
+	@git push origin tag $(VERSION)
