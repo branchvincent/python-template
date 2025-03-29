@@ -1,0 +1,26 @@
+// -*- mode: jsonc -*-
+{
+  // See more at https://code.visualstudio.com/docs/python/debugging
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "justMyCode": false
+    },
+    {
+      "name": "Module",
+      "type": "python",
+      "request": "launch",
+      "module": "project_name",
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "justMyCode": false,
+      "args": []
+    }
+  ]
+}
