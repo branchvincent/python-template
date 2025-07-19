@@ -27,7 +27,7 @@ uv run task --list
 To ensure code quality, we use the following tools:
 
 - Formatting and linting: [ruff](https://docs.astral.sh/ruff/)
-- Type checking: [mypy](https://mypy.readthedocs.io/en/stable/)
+- Type checking: [ty](https://docs.astral.sh/ty/)
 
 To run these:
 

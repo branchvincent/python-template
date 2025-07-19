@@ -13,9 +13,9 @@ repos:
         require_serial: true
         language: system
         types: [python]
-      - id: mypy
-        name: mypy
-        entry: uv run mypy
+      - id: ty
+        name: ty
+        entry: uv run ty check
         require_serial: true
         language: system
         types: [python]

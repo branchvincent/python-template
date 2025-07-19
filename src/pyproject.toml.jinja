@@ -15,7 +15,7 @@ classifiers = ["Private :: Do Not Upload"]
 {%- if docs %}
 docs = ["mkdocs", "mkdocs-material"]
 {%- endif %}
-dev = ["mypy", "pre-commit", "pytest", "ruff", "taskipy"]
+dev = ["pre-commit", "pytest", "ruff", "taskipy", "ty"]
 
 [tool.taskipy.tasks]
 clean = { cmd = "rm -rf .*_cache/ dist/", help = "Remove build artifacts" }
@@ -25,9 +25,8 @@ docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
 lint = { cmd = "pre-commit run --all-files", help = "Run linters and formatters" }
 test = { cmd = "pytest", help = "Run tests" }
 
-[tool.mypy]
-strict = true
-ignore_missing_imports = true
+[tool.ty]
+terminal = { output-format = "concise" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
