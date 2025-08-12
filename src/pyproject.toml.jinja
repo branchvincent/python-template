@@ -15,14 +15,14 @@ classifiers = ["Private :: Do Not Upload"]
 {%- if docs %}
 docs = ["mkdocs", "mkdocs-material"]
 {%- endif %}
-dev = ["pre-commit", "pytest", "ruff", "taskipy", "ty"]
+dev = ["prek", "pytest", "ruff", "taskipy", "ty"]
 
 [tool.taskipy.tasks]
 clean = { cmd = "rm -rf .*_cache/ dist/", help = "Remove build artifacts" }
 {% if docs -%}
 docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
 {% endif -%}
-lint = { cmd = "pre-commit run --all-files", help = "Run linters and formatters" }
+lint = { cmd = "prek run --all-files", help = "Run linters and formatters" }
 test = { cmd = "pytest", help = "Run tests" }
 
 [tool.ty]

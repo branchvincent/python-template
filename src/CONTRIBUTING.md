@@ -13,7 +13,7 @@ uv sync
 Optionally, you can also install [pre-commit](https://pre-commit.com/) hooks:
 
 ```sh
-uv run pre-commit install
+uv run prek install
 ```
 
 Lastly, to see common tasks with [taskipy](https://github.com/illBeRoy/taskipy):

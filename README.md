@@ -15,7 +15,7 @@ uvx copier copy --trust gh:branchvincent/python-template .
 - Package manager: [uv](https://docs.astral.sh/uv/)
 - Formatting: [Ruff](https://docs.astral.sh/ruff/formatter/)
 - Testing: [pytest](https://docs.pytest.org/en/latest/)
-- Linting: [Ruff](https://docs.astral.sh/ruff/linter/) and [pre-commit](https://pre-commit.com/)
+- Linting: [Ruff](https://docs.astral.sh/ruff/linter/) and [prek](https://github.com/j178/prek)
 - Typing: [ty](https://docs.astral.sh/ty/)
 - Task runner: [taskipy](https://github.com/illBeRoy/taskipy)
 - CI/CD: [Github Actions](https://docs.github.com/en/actions)
