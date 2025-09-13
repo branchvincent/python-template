@@ -26,6 +26,7 @@ lint = { cmd = "prek run --all-files", help = "Run linters and formatters" }
 test = { cmd = "pytest", help = "Run tests" }
 
 [tool.ty]
+environment = { python-platform = "all" }
 terminal = { output-format = "concise" }
 
 [tool.pytest.ini_options]
