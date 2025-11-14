@@ -25,16 +25,16 @@ docs = { cmd = "mkdocs serve -f docs/mkdocs.yaml", help = "Serve documentation"}
 lint = { cmd = "prek run --all-files", help = "Run linters and formatters" }
 test = { cmd = "pytest", help = "Run tests" }
 
-[tool.ty]
-environment = { python-platform = "all" }
-terminal = { output-format = "concise" }
-
-[tool.pytest.ini_options]
+[tool.pytest]
 testpaths = ["tests"]
 
 [tool.ruff]
 fix = true
 lint = { select = ["B", "E", "F", "I", "SIM", "UP"] }
+
+[tool.ty]
+environment = { python-platform = "all" }
+terminal = { output-format = "concise" }
 
 [build-system]
 requires = ["flit_core >=3.2,<4"]
