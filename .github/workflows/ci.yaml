@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up uv
+        run: pipx install uv
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.13
+      - name: Install package
+        run: uv sync --frozen
+      - name: Run linters
+        run: uv run task lint
+      - name: Run tests
+        run: uv run task test
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, 'cd skip')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump version
+        uses: TriPSs/conventional-changelog-action@v3
+        id: version
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-user-name: "GitHub Actions"
+          git-user-email: "action@github.com"
+          version-file: pyproject.toml
+          version-path: project.version
+          preset: conventionalcommits
+          output-file: false
+      - name: Publish to GitHub
+        if: steps.version.outputs.skipped == 'false'
+        run: gh release create "$TAG" --notes "$BODY"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.version.outputs.tag }}
+          BODY: ${{ steps.version.outputs.clean_changelog }}
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        if: steps.version.outputs.skipped == 'false'
+      - name: Publish to DockerHub
+        if: steps.version.outputs.skipped == 'false'
+        run: |
+          echo "$PASSWORD" | docker login https://ghcr.io -u "$USERNAME" --password-stdin
+          docker build -t $REPO:$TAG -t $REPO:latest .
+          docker push -a $REPO
+        env:
+          USERNAME: ${{ github.actor }}
+          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ghcr.io/${{ github.repository }}
+          TAG: ${{ steps.version.outputs.tag }}
+      

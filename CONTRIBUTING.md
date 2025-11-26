@@ -1,0 +1,54 @@
+# Contributing
+
+Before getting started, install [uv](https://docs.astral.sh/uv/getting-started/installation).
+
+## Getting Started
+
+To install the project:
+
+```sh
+uv sync
+```
+
+Optionally, you can also install [pre-commit](https://pre-commit.com/) hooks:
+
+```sh
+uv run prek install
+```
+
+Lastly, to see common tasks with [taskipy](https://github.com/illBeRoy/taskipy):
+
+```sh
+uv run task --list
+```
+
+## Linting
+
+To ensure code quality, we use the following tools:
+
+- Formatting and linting: [ruff](https://docs.astral.sh/ruff/)
+- Type checking: [ty](https://docs.astral.sh/ty/)
+
+To run these:
+
+```sh
+uv run task lint
+```
+
+## Testing
+
+To run tests via [pytest](https://docs.pytest.org/en/latest/):
+
+```sh
+uv run task test
+```
+
+## Releasing
+
+Releasing is fully automated via our [CI pipeline](.github/workflows/ci.yaml). On each commit to `main`, it will:
+
+1. Lint and test the codebase
+1. Determine if a new version should be released (using [conventional commits](https://www.conventionalcommits.org/))
+1. If so, bump the version and publish a new release
+
+To override this behavior, include `[cd skip]` in your commit message.

@@ -1,0 +1,17 @@
+// -*- mode: jsonc -*-
+{
+  // Linting/formatting
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+    }
+  },
+  // Testing
+  "python.testing.pytestEnabled": true,
+  // Typechecking
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic"
+}
